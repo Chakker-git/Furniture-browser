@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Furniture Browser</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="/">Furniture&nbsp;Browser</a>
+  <form id="search" class="searchbar" role="search">
+    <input id="q" name="q" type="search" autocomplete="off"
+           data-ph-en="Search in English or Danish: grey sofa, spisebord eg …"
+           data-ph-da="Søg på dansk eller engelsk: grå sofa, dining table oak …">
+    <button type="submit" data-i18n="search">Search</button>
+  </form>
+  <div class="prefs">
+    <select id="lang" aria-label="Language"><option value="en">EN</option><option value="da">DA</option></select>
+    <select id="currency" aria-label="Currency"><option>DKK</option><option>EUR</option></select>
+  </div>
+</header>
+
+<div class="layout">
+  <aside id="filters" class="filters">
+    <button type="button" class="filters-toggle" id="filtersToggle" data-i18n="filters">Filters</button>
+    <div class="filters-body">
+      <section><h3 data-i18n="country">Country</h3><div id="f-country" class="opts"></div></section>
+      <section><h3 data-i18n="category">Category</h3><div id="f-category" class="opts scroll"></div></section>
+      <section><h3 data-i18n="color">Colour</h3><div id="f-color" class="swatches"></div></section>
+      <section>
+        <h3 data-i18n="size">Size (cm)</h3>
+        <div class="range"><label data-i18n="width">Width</label><input type="number" id="wmin" placeholder="min"><input type="number" id="wmax" placeholder="max"></div>
+        <div class="range"><label data-i18n="depth">Depth</label><input type="number" id="dmin" placeholder="min"><input type="number" id="dmax" placeholder="max"></div>
+        <div class="range"><label data-i18n="height">Height</label><input type="number" id="hmin" placeholder="min"><input type="number" id="hmax" placeholder="max"></div>
+        <div class="range"><label data-i18n="seats">Seats</label><input type="number" id="seats_min" step="0.5" placeholder="min"><input type="number" id="seats_max" step="0.5" placeholder="max"></div>
+        <label class="check"><input type="checkbox" id="has_dimensions"> <span data-i18n="hasdims">Only items with known size</span></label>
+      </section>
+      <section>
+        <h3 data-i18n="price">Price</h3>
+        <div class="range"><label id="curLabel">DKK</label><input type="number" id="pmin" placeholder="min"><input type="number" id="pmax" placeholder="max"></div>
+        <label class="check"><input type="checkbox" id="in_stock"> <span data-i18n="instock">In stock</span></label>
+      </section>
+      <section><h3 data-i18n="material">Material</h3><div id="f-material" class="opts scroll"></div></section>
+      <section><h3 data-i18n="retailer">Retailer</h3><div id="f-retailer" class="opts scroll"></div></section>
+      <button type="button" id="clear" class="link" data-i18n="clear">Clear all filters</button>
+    </div>
+  </aside>
+
+  <main>
+    <div class="toolbar">
+      <div id="summary" class="summary"></div>
+      <select id="sort" aria-label="Sort">
+        <option value="relevance" data-i18n="s_rel">Best match</option>
+        <option value="price_asc" data-i18n="s_pa">Price: low to high</option>
+        <option value="price_desc" data-i18n="s_pd">Price: high to low</option>
+        <option value="width_asc" data-i18n="s_w">Width: narrow first</option>
+        <option value="newest" data-i18n="s_new">Newest</option>
+      </select>
+    </div>
+    <div id="understood" class="understood"></div>
+    <div id="results" class="grid"></div>
+    <nav id="pager" class="pager"></nav>
+  </main>
+</div>
+
+<dialog id="detail" class="detail"><div id="detailBody"></div></dialog>
+<script src="/static/app.js"></script>
+</body>
+</html>

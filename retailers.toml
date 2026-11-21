@@ -1,0 +1,354 @@
+# Retailer registry.
+#
+# platform: auto | shopify | woocommerce | sitemap | feed
+#   auto     -> probe Shopify, then WooCommerce Store API, then sitemap + JSON-LD
+#   feed     -> requires feed_url (+ feed_format = "google" | "csv"); preferred whenever
+#               a retailer offers one via an affiliate network (Awin, Adtraction,
+#               Partner-ads) or directly. Legal, complete and cheap.
+# currency:  default currency if the source omits it
+# product_url_pattern: regex to pick product pages out of the sitemap (optional)
+# max_pages: cap on pages/API pages fetched per run
+# furniture_only: drop rows we can't classify into a furniture category
+#                 (needed for general retailers such as OTTO, Bilka, vidaXL)
+#
+# NONE of these have been verified from the build sandbox (no network access to
+# retailer hosts). Run `python -m fb probe` on a machine with internet to see what
+# each site actually exposes, then pin platform/patterns here.
+# "risk" notes are expectations, not facts: confirm per site.
+
+[defaults]
+delay_seconds = 2.0
+max_pages = 3000
+
+# ---------------------------------------------------------------- Denmark
+[[retailer]]
+id = "jysk-dk"
+name = "JYSK"
+country = "DK"
+base_url = "https://jysk.dk"
+currency = "DKK"
+platform = "auto"
+
+[[retailer]]
+id = "ilva-dk"
+name = "ILVA"
+country = "DK"
+base_url = "https://www.ilva.dk"
+currency = "DKK"
+platform = "auto"
+
+[[retailer]]
+id = "bolia-dk"
+name = "Bolia"
+country = "DK"
+base_url = "https://www.bolia.com/da-dk"
+currency = "DKK"
+platform = "auto"
+
+[[retailer]]
+id = "sofacompany-dk"
+name = "Sofacompany"
+country = "DK"
+base_url = "https://www.sofacompany.com/da-dk"
+currency = "DKK"
+platform = "auto"
+
+[[retailer]]
+id = "boconcept-dk"
+name = "BoConcept"
+country = "DK"
+base_url = "https://www.boconcept.com/da-dk"
+currency = "DKK"
+platform = "auto"
+
+[[retailer]]
+id = "ikea-dk"
+name = "IKEA Danmark"
+country = "DK"
+base_url = "https://www.ikea.com/dk/da"
+currency = "DKK"
+platform = "auto"
+risk = "Large site, expect bot protection and restrictive terms. Prefer an official feed/partnership."
+enabled = false
+
+[[retailer]]
+id = "boligcenter-dk"
+name = "Boligcenter.dk"
+country = "DK"
+base_url = "https://www.boligcenter.dk"
+currency = "DKK"
+platform = "auto"
+
+[[retailer]]
+id = "beliani-dk"
+name = "Beliani"
+country = "DK"
+base_url = "https://www.beliani.dk"
+currency = "DKK"
+platform = "auto"
+
+[[retailer]]
+id = "vidaxl-dk"
+name = "vidaXL"
+country = "DK"
+base_url = "https://www.vidaxl.dk"
+currency = "DKK"
+platform = "auto"
+furniture_only = true
+
+[[retailer]]
+id = "soveland-dk"
+name = "Soveland"
+country = "DK"
+base_url = "https://www.soveland.dk"
+currency = "DKK"
+platform = "auto"
+
+[[retailer]]
+id = "home-tex-dk"
+name = "Home-tex"
+country = "DK"
+base_url = "https://www.home-tex.dk"
+currency = "DKK"
+platform = "auto"
+furniture_only = true
+
+[[retailer]]
+id = "nimara-dk"
+name = "Nimara"
+country = "DK"
+base_url = "https://www.nimara.dk"
+currency = "DKK"
+platform = "auto"
+
+[[retailer]]
+id = "fdbmobler-dk"
+name = "FDB Møbler"
+country = "DK"
+base_url = "https://fdbmobler.dk"
+currency = "DKK"
+platform = "auto"
+
+[[retailer]]
+id = "illums-dk"
+name = "Illums Bolighus"
+country = "DK"
+base_url = "https://www.illumsbolighus.dk"
+currency = "DKK"
+platform = "auto"
+furniture_only = true
+
+[[retailer]]
+id = "rum21-dk"
+name = "RUM21"
+country = "DK"
+base_url = "https://www.rum21.dk"
+currency = "DKK"
+platform = "auto"
+furniture_only = true
+
+[[retailer]]
+id = "lampegiganten-dk"
+name = "Lampegiganten"
+country = "DK"
+base_url = "https://www.lampegiganten.dk"
+currency = "DKK"
+platform = "auto"
+
+[[retailer]]
+id = "bilka-dk"
+name = "Bilka"
+country = "DK"
+base_url = "https://www.bilka.dk"
+currency = "DKK"
+platform = "auto"
+furniture_only = true
+
+# ---------------------------------------------------------------- Germany
+[[retailer]]
+id = "home24-de"
+name = "home24"
+country = "DE"
+base_url = "https://www.home24.de"
+currency = "EUR"
+platform = "auto"
+
+[[retailer]]
+id = "westwing-de"
+name = "Westwing"
+country = "DE"
+base_url = "https://www.westwing.de"
+currency = "EUR"
+platform = "auto"
+
+[[retailer]]
+id = "otto-de"
+name = "OTTO"
+country = "DE"
+base_url = "https://www.otto.de"
+currency = "EUR"
+platform = "auto"
+furniture_only = true
+product_url_pattern = "/p/"
+risk = "Huge marketplace (millions of SKUs). Restrict to furniture sitemaps or use the affiliate feed."
+enabled = false
+
+[[retailer]]
+id = "xxxlutz-de"
+name = "XXXLutz"
+country = "DE"
+base_url = "https://www.xxxlutz.de"
+currency = "EUR"
+platform = "auto"
+risk = "Expect bot protection. Group also runs moemax.de and poco.de."
+enabled = false
+
+[[retailer]]
+id = "moemax-de"
+name = "mömax"
+country = "DE"
+base_url = "https://www.moemax.de"
+currency = "EUR"
+platform = "auto"
+enabled = false
+
+[[retailer]]
+id = "poco-de"
+name = "POCO"
+country = "DE"
+base_url = "https://www.poco.de"
+currency = "EUR"
+platform = "auto"
+enabled = false
+
+[[retailer]]
+id = "hoeffner-de"
+name = "Höffner"
+country = "DE"
+base_url = "https://www.hoeffner.de"
+currency = "EUR"
+platform = "auto"
+
+[[retailer]]
+id = "moebel-kraft-de"
+name = "Möbel Kraft"
+country = "DE"
+base_url = "https://www.moebel-kraft.de"
+currency = "EUR"
+platform = "auto"
+
+[[retailer]]
+id = "sconto-de"
+name = "Sconto"
+country = "DE"
+base_url = "https://www.sconto.de"
+currency = "EUR"
+platform = "auto"
+
+[[retailer]]
+id = "porta-de"
+name = "porta"
+country = "DE"
+base_url = "https://www.porta.de"
+currency = "EUR"
+platform = "auto"
+
+[[retailer]]
+id = "segmueller-de"
+name = "Segmüller"
+country = "DE"
+base_url = "https://www.segmueller.de"
+currency = "EUR"
+platform = "auto"
+
+[[retailer]]
+id = "roller-de"
+name = "ROLLER"
+country = "DE"
+base_url = "https://www.roller.de"
+currency = "EUR"
+platform = "auto"
+
+[[retailer]]
+id = "ostermann-de"
+name = "Ostermann"
+country = "DE"
+base_url = "https://www.ostermann.de"
+currency = "EUR"
+platform = "auto"
+
+[[retailer]]
+id = "jysk-de"
+name = "JYSK Deutschland"
+country = "DE"
+base_url = "https://jysk.de"
+currency = "EUR"
+platform = "auto"
+
+[[retailer]]
+id = "ikea-de"
+name = "IKEA Deutschland"
+country = "DE"
+base_url = "https://www.ikea.com/de/de"
+currency = "EUR"
+platform = "auto"
+risk = "Large site, expect bot protection and restrictive terms."
+enabled = false
+
+[[retailer]]
+id = "beliani-de"
+name = "Beliani"
+country = "DE"
+base_url = "https://www.beliani.de"
+currency = "EUR"
+platform = "auto"
+
+[[retailer]]
+id = "kavehome-de"
+name = "Kave Home"
+country = "DE"
+base_url = "https://kavehome.com/de/de"
+currency = "EUR"
+platform = "auto"
+
+[[retailer]]
+id = "connox-de"
+name = "Connox"
+country = "DE"
+base_url = "https://www.connox.de"
+currency = "EUR"
+platform = "auto"
+furniture_only = true
+
+[[retailer]]
+id = "ambientedirect-de"
+name = "AmbienteDirect"
+country = "DE"
+base_url = "https://www.ambientedirect.com"
+currency = "EUR"
+platform = "auto"
+furniture_only = true
+
+[[retailer]]
+id = "massivum-de"
+name = "massivum"
+country = "DE"
+base_url = "https://www.massivum.de"
+currency = "EUR"
+platform = "auto"
+
+[[retailer]]
+id = "bolia-de"
+name = "Bolia"
+country = "DE"
+base_url = "https://www.bolia.com/de-de"
+currency = "EUR"
+platform = "auto"
+
+[[retailer]]
+id = "sofacompany-de"
+name = "Sofacompany"
+country = "DE"
+base_url = "https://www.sofacompany.com/de-de"
+currency = "EUR"
+platform = "auto"
