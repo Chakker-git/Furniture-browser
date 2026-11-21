@@ -169,3 +169,23 @@ def test_registry_loads():
     from fb import registry
     rs = registry.load()
     assert len(rs) > 30 and {r["country"] for r in rs} == {"DK", "DE"}
+
+
+def test_robots_429_means_back_off_not_retry_storm():
+    hits = []
+
+    def handler(req):
+        hits.append(req.url.path)
+        return httpx.Response(429, headers={"Retry-After": "10"})
+    client = PoliteClient(delay=0, transport=httpx.MockTransport(handler))
+    client.sleep = lambda s: None
+    res = runner.probe({**R}, client)
+    assert res["status"] == "blocked" and res["robots"] == 429
+    assert hits == ["/robots.txt"], "nothing beyond robots.txt may be requested"
+
+
+def test_probe_reports_403_robots_as_blocked():
+    client, calls = make_client({}, robots="")
+    client.client._transport = httpx.MockTransport(lambda req: httpx.Response(403, text="no"))
+    res = runner.probe({**R}, client)
+    assert res == {"id": "t", "status": "blocked", "robots": 403, "reason": "refuses bots (403)"}

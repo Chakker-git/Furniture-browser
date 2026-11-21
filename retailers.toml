@@ -49,7 +49,7 @@ platform = "auto"
 id = "sofacompany-dk"
 name = "Sofacompany"
 country = "DK"
-base_url = "https://www.sofacompany.com/da-dk"
+base_url = "https://sofacompany.com/da-dk"
 currency = "DKK"
 platform = "auto"
 
@@ -142,7 +142,7 @@ furniture_only = true
 id = "rum21-dk"
 name = "RUM21"
 country = "DK"
-base_url = "https://www.rum21.dk"
+base_url = "https://www.rum21.com/dk"
 currency = "DKK"
 platform = "auto"
 furniture_only = true
@@ -172,6 +172,8 @@ country = "DE"
 base_url = "https://www.home24.de"
 currency = "EUR"
 platform = "auto"
+enabled = false
+risk = "robots.txt answered 403 to our bot (probe 2026-11-21). Needs a feed."
 
 [[retailer]]
 id = "westwing-de"
@@ -200,7 +202,7 @@ country = "DE"
 base_url = "https://www.xxxlutz.de"
 currency = "EUR"
 platform = "auto"
-risk = "Expect bot protection. Group also runs moemax.de and poco.de."
+risk = "robots.txt answered 403 to our bot (probe 2026-11-21). Group also runs moemax.de and poco.de."
 enabled = false
 
 [[retailer]]
@@ -211,6 +213,7 @@ base_url = "https://www.moemax.de"
 currency = "EUR"
 platform = "auto"
 enabled = false
+risk = "robots.txt answered 403 to our bot (probe 2026-11-21)."
 
 [[retailer]]
 id = "poco-de"
@@ -249,7 +252,7 @@ platform = "auto"
 id = "porta-de"
 name = "porta"
 country = "DE"
-base_url = "https://www.porta.de"
+base_url = "https://porta.de"
 currency = "EUR"
 platform = "auto"
 
@@ -310,6 +313,8 @@ country = "DE"
 base_url = "https://kavehome.com/de/de"
 currency = "EUR"
 platform = "auto"
+enabled = false
+risk = "Every request, including robots.txt, got 429 (probe 2026-11-21). Retry later or use a feed."
 
 [[retailer]]
 id = "connox-de"
@@ -333,7 +338,7 @@ furniture_only = true
 id = "massivum-de"
 name = "massivum"
 country = "DE"
-base_url = "https://www.massivum.de"
+base_url = "https://massivum.de"
 currency = "EUR"
 platform = "auto"
 
@@ -349,6 +354,6 @@ platform = "auto"
 id = "sofacompany-de"
 name = "Sofacompany"
 country = "DE"
-base_url = "https://www.sofacompany.com/de-de"
+base_url = "https://sofacompany.com/de-de"
 currency = "EUR"
 platform = "auto"

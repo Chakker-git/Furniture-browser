@@ -30,6 +30,7 @@ class PoliteClient:
         self._last: dict[str, float] = {}
         self._robots: dict[str, urllib.robotparser.RobotFileParser | None] = {}
         self._delays: dict[str, float] = {}
+        self.robots_status: dict[str, int] = {}
         self.client = httpx.Client(
             timeout=timeout, follow_redirects=True, transport=transport,
             headers={"User-Agent": user_agent,
@@ -47,11 +48,15 @@ class PoliteClient:
             rp = urllib.robotparser.RobotFileParser()
             try:
                 r = self.client.get(host + "/robots.txt")
+                self.robots_status[parts.netloc] = r.status_code
                 if r.status_code == 200:
                     rp.parse(r.text.splitlines())
-                elif r.status_code in (401, 403):
+                elif r.status_code in (401, 403, 429) or r.status_code >= 500:
+                    # 401/403: the site refuses bots outright. 429/5xx: per Google's
+                    # robots.txt rules, treat as "everything disallowed for now"
+                    # rather than hammering a site that is already pushing back.
                     rp.disallow_all = True
-                else:
+                else:  # 404 etc.: no robots.txt means no restrictions
                     rp.allow_all = True
             except httpx.HTTPError:
                 rp.allow_all = True

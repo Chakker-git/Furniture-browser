@@ -3,6 +3,7 @@ from __future__ import annotations
 import logging
 import sqlite3
 import time
+from urllib.parse import urlsplit
 from typing import Iterable
 
 from .. import db
@@ -92,9 +93,15 @@ def probe(r: dict, client: PoliteClient | None = None) -> dict:
     client = client or PoliteClient(delay=r.get("delay_seconds", 2.0))
     try:
         rp = client.robots(r["base_url"])
+        netloc = urlsplit(r["base_url"]).netloc
+        robots = client.robots_status.get(netloc)
+        if not client.allowed(r["base_url"]):
+            why = {403: "refuses bots (403)", 401: "refuses bots (401)",
+                   429: "rate-limited (429)"}.get(robots, f"robots.txt disallows ({robots})")
+            return {"id": r["id"], "status": "blocked", "robots": robots, "reason": why}
         sitemaps = list(rp.site_maps() or []) if rp else []
-        return {"id": r["id"], "allowed_root": client.allowed(r["base_url"]),
-                "sitemaps": sitemaps[:5], "platform": detect_platform(client, r)}
+        return {"id": r["id"], "status": "ok", "robots": robots,
+                "platform": detect_platform(client, r), "sitemaps": sitemaps[:5]}
     except Exception as e:
         return {"id": r["id"], "error": f"{type(e).__name__}: {e}"}
     finally:

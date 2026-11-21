@@ -43,6 +43,8 @@ def main(argv=None):
     a = ap.parse_args(argv)
     logging.basicConfig(level=logging.DEBUG if a.verbose else logging.INFO,
                         format="%(asctime)s %(levelname)s %(name)s: %(message)s")
+    if not a.verbose:  # one line per HTTP request is noise unless debugging
+        logging.getLogger("httpx").setLevel(logging.WARNING)
 
     if a.cmd == "serve":
         import uvicorn
